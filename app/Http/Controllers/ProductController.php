@@ -20,17 +20,15 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function show($product) {
-        $products = Product::findOrFail($product);
-        return view('products.show')->with(['product' => $products]);
+    public function show(Product $product) {
+        return view('products.show')->with(['product' => $product]);
     }
 
-    public function edit($product) {
-        $product = Product::findOrFail($product);
+    public function edit(Product $product) {
         return view('products.edit')->with(['product' => $product]);
     }
 
-    public function update($product) {
+    public function update(Product $product) {
         $rules = [
             'title' => ['required', 'max:255'],
             'description' => ['required', 'max:1000'],
@@ -41,13 +39,11 @@ class ProductController extends Controller
 
         request()->validate($rules);
 
-        $product = Product::findOrFail($product);
         $product->update(request()->all());
         return redirect()->route('products.index')->withSuccess("Product with id {$product->id} was updated");
     }
 
-    public function destroy($product) {
-        $product = Product::findOrFail($product);
+    public function destroy(Product $product) {
         $product->delete();
         return redirect()->route('products.index')->withSuccess("Product with id {$product->id} was removed");
     }
