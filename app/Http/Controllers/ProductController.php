@@ -38,13 +38,13 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($product);
         $product->update(request()->all());
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withSuccess("Product with id {$product->id} was updated");
     }
 
     public function destroy($product) {
         $product = Product::findOrFail($product);
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withSuccess("Product with id {$product->id} was removed");
     }
 
     public function store() {
@@ -59,12 +59,10 @@ class ProductController extends Controller
         request()->validate($rules);
 
         if (request()->stock == 0 && request()->status == 'available') {
-            session()->flash('error', 'If available it must have stock');
-            return redirect()->back()->withInput(request()->all());
+            return redirect()->back()->withInput(request()->all())->withErrors('If available it must have stock');
         }
         $product = Product::create(request()->all());
 
-        session()->flash("success", "New product with id {$product->id} was created.");
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->withSuccess("New product with id {$product->id} was created.");
     }
 }
