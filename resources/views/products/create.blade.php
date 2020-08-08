@@ -5,19 +5,19 @@
         @csrf
         <div class="form-row">
             <label for="title">Title</label>
-            <input class="form-control" type="text" name="title" id="title">
+            <input class="form-control" type="text" name="title" id="title" required>
         </div>
         <div class="form-row">
             <label for="description">Description</label>
-            <input class="form-control" type="text" name="description" id="description">
+            <input class="form-control" type="text" name="description" id="description" required>
         </div>
         <div class="form-row">
             <label for="price">Price</label>
-            <input class="form-control" type="number" name="price" id="price" min="1.00" step="0.01">
+            <input class="form-control" type="number" name="price" id="price" min="1.00" step="0.01" required>
         </div>
         <div class="form-row">
             <label for="stock">Stock</label>
-            <input class="form-control" type="number" name="stock" id="stock" min="0">
+            <input class="form-control" type="number" name="stock" id="stock" min="0" required>
         </div>
         <div class="form-row">
             <label for="status">Status</label>
