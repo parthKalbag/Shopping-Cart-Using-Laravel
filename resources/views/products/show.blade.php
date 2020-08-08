@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
     <h4>{{$product->title}} {{$product->id}}</h4>
     <p>{{$product->description}}</p>

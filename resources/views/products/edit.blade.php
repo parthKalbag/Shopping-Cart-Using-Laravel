@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
     <h1>Edit a Product</h1>
     <form method="POST" action="{{ route('products.update', ['product' => $product->id]) }}">
