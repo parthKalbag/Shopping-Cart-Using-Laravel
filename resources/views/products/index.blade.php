@@ -32,12 +32,12 @@
                             <td>{{$product->stock}}</td>
                             <td>{{ucfirst($product->status)}}</td>
                             <td>
-                                <a class="btn btn-link" href="{{route('products.show', ['product' => $product->id])}}">Show</a>
-                                <a class="btn btn-link" href="{{route('products.edit', ['product' => $product->id])}}">Edit</a>
+                                <a class="btn btn-link btn-primary" href="{{route('products.show', ['product' => $product->id])}}"><span class="text-white">Show</span></a>
+                                <a class="btn btn-link btn-secondary" href="{{route('products.edit', ['product' => $product->id])}}"><span class="text-white">Edit</span></a>
                                 <form class="d-inline" method="POST" action="{{route('products.destroy', ['product' => $product->id])}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-link">Delete</button>
+                                    <button type="submit" class="btn btn-link btn-danger"><span class="text-white">Delete</span></button>
                                 </form>
                             </td>
                         </tr>
