@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Order;
+use App\Payment;
 
 class User extends Authenticatable
 {
@@ -44,5 +45,9 @@ class User extends Authenticatable
 
     public function orders() {
         return $this->hasMany(Order::class, 'customer_id');
+    }
+
+    public function payments() {
+        return $this->hasManyThrough(Payment::class, Order::class, 'customer_id');
     }
 }
