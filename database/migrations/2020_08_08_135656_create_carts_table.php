@@ -15,8 +15,6 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default('pending');
-            // customer id later
             $table->timestamps();
         });
     }
