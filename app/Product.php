@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Order;
-use App\Cart;
 
 /**
  * @property mixed id
@@ -24,6 +22,6 @@ class Product extends Model
     }
 
     public function images() {
-        return $this->morphMany(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
