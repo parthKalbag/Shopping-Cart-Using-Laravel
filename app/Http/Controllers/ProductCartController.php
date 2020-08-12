@@ -4,30 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Product;
+use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class ProductCartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Product $product)
-    {
-        //
-    }
+    public $cartService;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Product $product)
+    public function __construct(CartService $cartService)
     {
-        //
+        $this->cartService = $cartService;
     }
 
     /**
@@ -35,48 +22,15 @@ class ProductCartController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Product $product)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product, Cart $cart)
-    {
-        //
+        $cart = $this->cartService->getFromCookieOrCreate();
+        $quantity = $cart->products()->find($product->id)->pivot->quantity ?? 0;
+        $cart->products()->syncWithoutDetaching([ $product->id => ['quantity' => $quantity + 1] ]);
+        $cookie = Cookie::make('cart', $cart->id, 7 * 24 * 60);
+        return redirect()->back()->cookie($cookie);
     }
 
     /**
