@@ -7,6 +7,7 @@
         <p class="card-text"><strong>{{$product->stock}} left</strong></p>
     </div>
     @if(isset($cart))
+        <p class="card-text ml-4">Quantity: {{$product->pivot->quantity}} <br> Total:  <strong>{{$product->total}}</strong> </p>
         <form method="POST" class="d-inline ml-2 mb-2" action="{{route('products.carts.destroy', ['product' => $product->id, 'cart' => $cart->id])}}">
             @csrf
             @method('DELETE')

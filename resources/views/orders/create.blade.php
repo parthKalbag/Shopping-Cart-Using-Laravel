@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <h3>You are in the list of products</h3>
+    <h3>Order Details</h3>
+    <h4 class="text-center"><strong>Grand Total: {{$cart->total}}</strong></h4>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="thead-dark">
@@ -18,7 +19,7 @@
                         <td>{{$product->title}}<img src="{{'https://' . $product->images->first()->path}}" width="100" alt="{{$product->title}}"> </td>
                         <td>{{$product->price}}</td>
                         <td>{{$product->pivot->quantity}}</td>
-                        <td>{{$product->pivot->quantity * $product->price}}</td>
+                        <td>{{$product->total}}</td>
                     </tr>
                 @endforeach
             </tbody>

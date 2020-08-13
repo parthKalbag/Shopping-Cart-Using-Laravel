@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property mixed id
+ * @property mixed price
+ * @property mixed pivot
  */
 class Product extends Model
 {
@@ -28,4 +30,9 @@ class Product extends Model
     public function scopeAvailable($query) {
         return $query->where('status', 'available');
     }
+
+    public function getTotalAttribute() {
+       return $this->price * $this->pivot->quantity;
+    }
+
 }
