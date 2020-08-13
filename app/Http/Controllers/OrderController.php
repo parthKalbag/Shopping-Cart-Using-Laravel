@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Services\CartService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $cartService;
+    public function __construct(CartService $cartService)
+    {
+        $this->cartService = $cartService;
+    }
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $cart = $this->cartService->getFromCookie();
+        if (!isset($cart) || $cart->products->isEmpty()) {
+            return redirect()->back()->withErrors('Your Cart is Empty');
+        }
+        return view('orders.create')->with(['cart' => $cart]);
     }
 
     /**

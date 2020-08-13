@@ -7,6 +7,7 @@
             Your Cart is empty
         </div>
     @else
+        <a href="{{route('orders.create')}}" class="btn btn-success mb-3">Start Order</a>
         <div class="row">
             @foreach($cart->products as $product)
                 <div class="col-3">
