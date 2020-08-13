@@ -29,7 +29,7 @@ class ProductCartController extends Controller
         $cart = $this->cartService->getFromCookieOrCreate();
         $quantity = $cart->products()->find($product->id)->pivot->quantity ?? 0;
         $cart->products()->syncWithoutDetaching([ $product->id => ['quantity' => $quantity + 1] ]);
-        $cookie = Cookie::make('cart', $cart->id, 7 * 24 * 60);
+        $cookie = $this->cartService->makeCookie($cart);
         return redirect()->back()->cookie($cookie);
     }
 
@@ -38,10 +38,12 @@ class ProductCartController extends Controller
      *
      * @param  \App\Product  $product
      * @param  \App\Cart  $cart
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Product $product, Cart $cart)
     {
-        //
+        $cart->products()->detach($product->id);
+        $cookie = $this->cartService->makeCookie($cart);
+        return redirect()->back()->cookie($cookie);
     }
 }

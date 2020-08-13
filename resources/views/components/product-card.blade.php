@@ -6,8 +6,16 @@
         <p class="card-text">{{$product->description}}</p>
         <p class="card-text"><strong>{{$product->stock}} left</strong></p>
     </div>
+    @if(isset($cart))
+        <form method="POST" class="d-inline ml-2 mb-2" action="{{route('products.carts.destroy', ['product' => $product->id, 'cart' => $cart->id])}}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Remove from Cart</button>
+        </form>
+    @else
     <form method="POST" class="d-inline ml-2 mb-2" action="{{route('products.carts.store', ['product' => $product->id])}}">
         @csrf
         <button type="submit" class="btn btn-success">Add To Cart</button>
     </form>
+    @endif
 </div>

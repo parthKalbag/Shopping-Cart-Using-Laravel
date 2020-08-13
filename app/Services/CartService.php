@@ -6,6 +6,7 @@ use App\Cart;
 use Illuminate\Support\Facades\Cookie;
 
 class CartService {
+    private $cookieName = 'cart';
     public function getFromCookieOrCreate() {
         $cartId = Cookie::get('cart');
 
@@ -13,4 +14,9 @@ class CartService {
 
         return $cart ?? Cart::create();
     }
+
+    public function makeCookie(Cart $cart) {
+        return Cookie::make($this->cookieName, $cart->id, 7 * 24 * 60);
+    }
+
 }
