@@ -8,6 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use App\Order;
 use App\Payment;
 
+/**
+ * @property mixed admin_since
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -53,5 +56,9 @@ class User extends Authenticatable
 
     public function image() {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function isAdmin() {
+        return $this->admin_since != null && $this->admin_since->lessThanOrEqualTo(now());
     }
 }

@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index() {
         $products = Product::all();
         return view('products.index')->with(['products' => $products]);
