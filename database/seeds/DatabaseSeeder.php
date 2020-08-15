@@ -21,12 +21,14 @@ class DatabaseSeeder extends Seeder
             $image = factory(Image::class)->states('user')->make();
             $user->image()->save($image);
         });
+
         $orders = factory(Order::class, 10)->make()->each(function ($order) use ($users){
             $order->customer_id = $users->random()->id;
             $order->save();
             $payment = factory(Payment::class)->make();
             $order->payment()->save($payment);
         });
+
         $carts = factory(Cart::class, 20)->create();
         $products = factory(Product::class, 50)->create()->each(function ($product) use ($orders, $carts) {
             $order = $orders->random();
