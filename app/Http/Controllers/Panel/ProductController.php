@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Requests\ProductRequest;
-use App\Product;
+use App\PanelProduct as Product;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
