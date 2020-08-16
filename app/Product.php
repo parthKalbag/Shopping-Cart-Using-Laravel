@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\AvailableScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,10 @@ class Product extends Model
     protected $fillable = [
       'title', 'description','price','stock','status',
     ];
+
+    protected static function booted() {
+        static::addGlobalScope(new AvailableScope);
+    }
 
     public function carts() {
         return $this->morphedByMany(Cart::class, 'productable')->withPivot('quantity');
