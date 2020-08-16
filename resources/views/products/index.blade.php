@@ -31,10 +31,10 @@
                             <td>{{$product->price}}</td>
                             <td>{{$product->stock}}</td>
                             <td>{{ucfirst($product->status)}}</td>
-                            <td>
-                                <a class="btn btn-link btn-primary" href="{{route('products.show', ['product' => $product->id])}}"><span class="text-white">Show</span></a>
-                                <a class="btn btn-link btn-secondary" href="{{route('products.edit', ['product' => $product->id])}}"><span class="text-white">Edit</span></a>
-                                <form class="d-inline" method="POST" action="{{route('products.destroy', ['product' => $product->id])}}">
+                            <td class="d-flex space-around">
+                                <a class="btn btn-link btn-primary ml-2" href="{{route('products.show', ['product' => $product->id])}}"><span class="text-white">Show</span></a>
+                                <a class="btn btn-link btn-secondary ml-2" href="{{route('products.edit', ['product' => $product->id])}}"><span class="text-white">Edit</span></a>
+                                <form class="d-inline ml-2" method="POST" action="{{route('products.destroy', ['product' => $product->id])}}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link btn-danger"><span class="text-white">Delete</span></button>
