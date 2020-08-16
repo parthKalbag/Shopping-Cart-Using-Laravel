@@ -11,7 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed pivot
  */
 class Product extends Model
-{
+{    
+    protected $table = 'products';
+    
+    protected $with = 'images';
+
     protected $fillable = [
       'title', 'description','price','stock','status',
     ];

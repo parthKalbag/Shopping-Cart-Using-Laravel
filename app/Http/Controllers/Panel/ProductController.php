@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::all();
+        $products = Product::without('images')->get();
         return view('products.index')->with(['products' => $products]);
     }
 
